@@ -1,0 +1,11 @@
+{
+  "engines": {
+    "node": ">= 7.5.0"
+  },
+  "scripts": {
+    "heroku-prebuild": "cd server && npm install --production && cd ../client && npm install && npm run build",
+    "start": "cd server && npm start",
+    "pretest": "cd server && npm install",
+    "test": "cd server && npm test"
+  }
+}

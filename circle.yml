@@ -1,0 +1,12 @@
+deployment:
+  staging:
+    branch: master
+    heroku:
+      appname: stock-sales
+dependencies:
+  pre:
+    - mkdir -p server/node_modules
+    - mkdir -p client/node_modules
+  cache_directories:
+    - "server/node_modules"
+    - "client/node_modules"
