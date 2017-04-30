@@ -4,7 +4,6 @@ const winston = require('winston');
 const User = require('../model/user');
 const auth = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
-const passwUtil = require('./passwUtil');
 
 auth.use(new LocalStrategy({
         usernameField: 'email',
@@ -14,26 +13,14 @@ auth.use(new LocalStrategy({
     },
     (username, password, done) => {
         winston.info('Accessing with %s', username);
-        User.where({'email': username})
-            .fetch()
+        User.login(username, password)
             .then((user) => {
-                if (!user) {
-                    winston.info('User %s not found', username);
-                    return done(null, false);
-                }
-                passwUtil.comparePassword(password, user.get('password'), (err, isValid) => {
-                    if (isValid) {
-                        delete user["password"];
-                        winston.info('Access granted for %s', username);
-                        return done(null, user);
-                    } else {
-                        winston.warn('Invalid credentials for %s', username);
-                        return done(null, false);
-                    }
-                });
-            }).catch((e) => {
-            winston.error('Something went wrong ' + e);
-        });
+                return done(null, user);
+            })
+            .catch((e) => {
+                winston.error('Something went wrong ' + e);
+                return done(null, false);
+            })
     }
 ));
 

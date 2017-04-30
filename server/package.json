@@ -9,6 +9,7 @@
     "babel-cli": "6.14.0",
     "babel-core": "6.14.0",
     "bcrypt": "^1.0.2",
+    "bluebird": "^3.5.0",
     "body-parser": "^1.17.1",
     "bookshelf": "^0.10.3",
     "cookie-parser": "^1.4.3",
@@ -35,6 +36,7 @@
     "test": "NODE_ENV=test mocha $(find . -name '*.spec.js')"
   },
   "devDependencies": {
+    "@types/bluebird": "^3.5.3",
     "@types/bookshelf": "^0.8.38",
     "@types/chai": "^3.4.35",
     "@types/jasmine": "^2.5.46",
@@ -44,7 +46,7 @@
     "@types/winston": "^2.3.0",
     "chai": "^3.5.0",
     "concurrently": "3.1.0",
-    "eslint": "3.15.0",
+    "eslint": "^3.19.0",
     "eslint-config-airbnb": "14.1.0",
     "eslint-plugin-import": "2.2.0",
     "eslint-plugin-jsx-a11y": "4.0.0",

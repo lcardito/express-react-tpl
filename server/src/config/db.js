@@ -7,7 +7,7 @@ console.log('Knex config: ' + util.inspect(config[process.env.NODE_ENV], false, 
 let knex =  require('knex')(config[process.env.NODE_ENV]);
 let bookshelf = require('bookshelf')(knex);
 
-bookshelf.plugin('registry');
+bookshelf.plugin(['registry', 'visibility']);
 
 module.exports = {
     knex: knex,
