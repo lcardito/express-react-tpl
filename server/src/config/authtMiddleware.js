@@ -1,6 +1,7 @@
 "use strict";
+
 const winston = require('winston');
-const db = require('./db');
+const User = require('../model/user');
 const auth = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
 const passwUtil = require('./passwUtil');
@@ -13,16 +14,14 @@ auth.use(new LocalStrategy({
     },
     (username, password, done) => {
         winston.info('Accessing with %s', username);
-        db('user').where({email: username})
-            .limit(1)
-            .select()
-            .then((result) => {
-                let user = result[0];
+        User.where({'email': username})
+            .fetch()
+            .then((user) => {
                 if (!user) {
                     winston.info('User %s not found', username);
                     return done(null, false);
                 }
-                passwUtil.comparePassword(password, user.password, (err, isValid) => {
+                passwUtil.comparePassword(password, user.get('password'), (err, isValid) => {
                     if (isValid) {
                         delete user["password"];
                         winston.info('Access granted for %s', username);
@@ -39,17 +38,13 @@ auth.use(new LocalStrategy({
 ));
 
 auth.serializeUser((user, cb) => {
-
     cb(null, user.id);
 });
 
 auth.deserializeUser((id, cb) => {
-    db('user')
-        .where({id: id})
-        .select('id', 'username', 'email', 'createdDate')
-        .then((result) => {
-            cb(null, result[0]);
-        });
+    User.where({id: id}).then((user) => {
+        cb(null, user);
+    })
 });
 
 module.exports = auth;

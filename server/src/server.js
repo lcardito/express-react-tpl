@@ -10,7 +10,7 @@ const cors = require('cors');
 const env = process.env.NODE_ENV;
 console.log('Starting server in ' + env);
 
-const db = require('./config/db');
+const knex = require('./config/db').knex;
 
 const app = express();
 app.set('port', (process.env.PORT || 3001));
@@ -62,10 +62,10 @@ api.use((req, res, next) => {
 app.use('/api', api);
 
 console.log('Running database migrations');
-db.migrate.latest()
+knex.migrate.latest()
     .then(() => {
         if (env === 'test') {
-            return db.seed.run();
+            return knex.seed.run();
         }
     }).then(() => {
     app.listen(process.env.PORT || app.get('port'), () => {
@@ -78,5 +78,5 @@ db.migrate.latest()
 
 module.exports = {
     app: app,
-    knex: db
+    knex: knex
 };

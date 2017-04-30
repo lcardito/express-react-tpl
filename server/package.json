@@ -10,6 +10,7 @@
     "babel-core": "6.14.0",
     "bcrypt": "^1.0.2",
     "body-parser": "^1.17.1",
+    "bookshelf": "^0.10.3",
     "cookie-parser": "^1.4.3",
     "cors": "^2.8.3",
     "express": "^4.0.35",
@@ -34,6 +35,7 @@
     "test": "NODE_ENV=test mocha $(find . -name '*.spec.js')"
   },
   "devDependencies": {
+    "@types/bookshelf": "^0.8.38",
     "@types/chai": "^3.4.35",
     "@types/jasmine": "^2.5.46",
     "@types/knex": "0.0.44",
