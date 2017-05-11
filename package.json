@@ -6,6 +6,6 @@
     "heroku-prebuild": "cd server && npm install --production && cd ../client && npm install && npm run build",
     "start": "cd server && npm start",
     "pretest": "cd server && npm install",
-    "test": "cd server && npm test"
+    "test": "cd server && npm test && cd ../client && npm test"
   }
 }

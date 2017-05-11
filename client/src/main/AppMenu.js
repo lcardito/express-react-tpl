@@ -4,7 +4,7 @@ import {Menu} from "semantic-ui-react";
 import {connect} from "react-redux";
 import {mapStateToProps} from "../transformer";
 
-class AppMenu extends React.Component {
+export class AppMenu extends React.Component {
 
     //noinspection JSUnusedGlobalSymbols
     static contextTypes = {
@@ -13,7 +13,6 @@ class AppMenu extends React.Component {
 
     constructor() {
         super();
-
         this._logout = this._logout.bind(this);
     }
 
