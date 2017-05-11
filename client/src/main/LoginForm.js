@@ -1,9 +1,10 @@
-import React from 'react';
+import React from "react";
 
-import {connect} from 'react-redux';
+import {connect} from "react-redux";
 import {mapStateToProps} from "../transformer";
-import GenericForm from "./GenericForm";
-import Client from '../main/Client';
+import update from "immutability-helper";
+import Client from "../main/Client";
+import {Form, Message} from "semantic-ui-react";
 
 class LoginForm extends React.Component {
     //noinspection JSUnusedGlobalSymbols
@@ -14,7 +15,11 @@ class LoginForm extends React.Component {
     constructor() {
         super();
         this.state = {
-            error: false
+            error: false,
+            creds: {
+                email: "",
+                password: ""
+            }
         };
 
         this._submit = this._submit.bind(this);
@@ -46,17 +51,41 @@ class LoginForm extends React.Component {
         });
     }
 
+    _updateItem(event) {
+        this.setState({
+            item: update(this.state.creds, {
+                $merge: {[event.target.name]: event.target.value}
+            })
+        });
+    }
+
     render() {
-        return <GenericForm
-            fields={[
-                {key: 'email', value: 'Email'},
-                {key: 'password', value: 'Password'}
-            ]}
-            item={{email: '', password: ''}}
-            editing={false}
+        return <Form
             error={this.state.error}
-            submitButton={{text: "Login", color: "green"}}
-            submitCallback={this._submit}/>;
+            className='segment'
+            onSubmit={this._submit.bind(this)}>
+            <Message
+                error
+                header='Login Failed'
+                content='Credentials are invalid' />
+            <Form.Group widths='equal'>
+                <Form.Input
+                    label="Email"
+                    name="email"
+                    type="text"
+                    value={this.state.creds.email}
+                    onChange={this._updateItem} />
+                <Form.Input
+                    label="Password"
+                    name="password"
+                    type="password"
+                    value={this.state.creds.password}
+                    onChange={this._updateItem} />
+            </Form.Group>
+            <Form.Group>
+                <Form.Button color="green" type="submit">Log in</Form.Button>
+            </Form.Group>
+        </Form>
     }
 }
 

@@ -6,7 +6,6 @@ import {hashHistory, Route, Router} from "react-router";
 import {Provider} from "react-redux";
 
 import AppMenu from "./main/AppMenu";
-import Sales from "./sales/Sales";
 import EnsureLoggedInContainer from "./main/EnsureLoggedInContainer";
 
 import {createStore} from "redux";
@@ -33,7 +32,7 @@ render((
             <Route component={AppMenu}>
                 <Route path="/login" component={LoginForm}/>
                 <Route component={EnsureLoggedInContainer}>
-                    <Route path="/" component={Sales}/>
+                    {/*More components here*/}
                 </Route>
             </Route>
         </Router>

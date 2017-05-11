@@ -1,5 +1,4 @@
 import React from "react";
-import {Link} from "react-router";
 import {Menu} from "semantic-ui-react";
 
 import {connect} from "react-redux";
@@ -30,14 +29,11 @@ class AppMenu extends React.Component {
         return (
             <div className='ui container' style={{width: '60%', height: '20%', margin: '1em auto'}}>
                 <Menu stackable={true}>
-                    <Menu.Item
-                        name='dashboard'>
-                        <Link to="/">Sales</Link>
-                    </Menu.Item>
+                    <Menu.Item name='home'/>
                     <Menu.Menu position='right'>
                         {this.props.isLoggedIn &&
                         <Menu.Item name='logout' onClick={this._logout}>
-                            {this.props.user.email}
+                            Welcome {this.props.user.email}
                         </Menu.Item>
                         }
                     </Menu.Menu>
