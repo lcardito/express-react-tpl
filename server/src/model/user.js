@@ -4,6 +4,7 @@ const bookshelf = require('../config/db').bookshelf;
 const Promise = require('bluebird');
 const bcrypt = Promise.promisifyAll(require('bcrypt'));
 
+//noinspection JSDeprecatedSymbols
 const User = bookshelf.Model.extend({
         tableName: 'users',
         hidden: ['password']
