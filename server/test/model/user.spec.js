@@ -2,6 +2,7 @@
 
 const User = require('../../src/model/user');
 const db = require('../../src/config/db');
+const assert = require('chai').assert;
 
 describe('user test', () => {
     let knex;
@@ -13,7 +14,7 @@ describe('user test', () => {
                 done();
             })
             .catch((err) => {
-                done();
+                done(err);
             });
     });
 
@@ -24,7 +25,8 @@ describe('user test', () => {
 
     it('user should be able to login', (done) => {
         User.login('gigo@gigio.com', 'password')
-            .then(() => {
+            .then((user) => {
+                assert.equal(user.get('email'), 'gigo@gigio.com');
                 done();
             }).catch(done);
     });
@@ -33,7 +35,7 @@ describe('user test', () => {
         User.where('email', 'not@found.com')
             .fetch({require: true})
             .catch(User.NotFoundError, (e) => {
-                done();
+                done(e);
             })
     });
 });
