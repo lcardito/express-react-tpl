@@ -7,6 +7,7 @@ import {Provider} from "react-redux";
 
 import AppMenu from "./main/AppMenu";
 import EnsureLoggedInContainer from "./main/EnsureLoggedInContainer";
+import Welcome from './main/Welcome';
 
 import {createStore} from "redux";
 import LoginForm from "./main/LoginForm";
@@ -17,14 +18,14 @@ function login(state = {}, action) {
         case 'LOG_IN':
             return state = {user: action.user};
         case 'LOG_OUT':
-            cookie.remove('stock-sales.user');
+            cookie.remove('application.user');
             return state = {user: {}};
         default:
             return state;
     }
 }
 
-let store = createStore(login, {user: cookie.load('stock-sales.user')});
+let store = createStore(login, {user: cookie.load('application.user')});
 
 render((
     <Provider store={store}>
@@ -32,7 +33,7 @@ render((
             <Route component={AppMenu}>
                 <Route path="/login" component={LoginForm}/>
                 <Route component={EnsureLoggedInContainer}>
-                    {/*More components here*/}
+                    <Route path="/" component={Welcome}/>
                 </Route>
             </Route>
         </Router>

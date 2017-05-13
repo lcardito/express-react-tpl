@@ -2,7 +2,7 @@ deployment:
   staging:
     branch: master
     heroku:
-      appname: stock-sales
+      appname: express-react-tpl
 dependencies:
   pre:
     - mkdir -p server/node_modules

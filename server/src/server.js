@@ -37,8 +37,7 @@ app.use(auth.initialize());
 app.use(auth.session());
 
 app.post('/login',
-    auth.authenticate('local', {failWithError: true}),
-    (req, res) => {
+    auth.authenticate('local', {failWithError: false}), (req, res) => {
         return res.json(req.user);
     });
 

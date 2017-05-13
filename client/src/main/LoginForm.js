@@ -23,6 +23,7 @@ class LoginForm extends React.Component {
         };
 
         this._submit = this._submit.bind(this);
+        this._updateItem = this._updateItem.bind(this);
     }
 
     componentDidMount() {
@@ -35,8 +36,8 @@ class LoginForm extends React.Component {
         }
     }
 
-    _submit(userData) {
-        Client.login(userData, (response) => {
+    _submit() {
+        Client.login(this.state.creds, (response) => {
             if (response.errorStatus) {
                 this.setState({
                     error: true
@@ -53,7 +54,7 @@ class LoginForm extends React.Component {
 
     _updateItem(event) {
         this.setState({
-            item: update(this.state.creds, {
+            creds: update(this.state.creds, {
                 $merge: {[event.target.name]: event.target.value}
             })
         });
@@ -83,7 +84,7 @@ class LoginForm extends React.Component {
                     onChange={this._updateItem} />
             </Form.Group>
             <Form.Group>
-                <Form.Button color="green" type="submit">Log in</Form.Button>
+                <Form.Button color="green" type="button" onClick={this._submit}>Log in</Form.Button>
             </Form.Group>
         </Form>
     }
